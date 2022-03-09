@@ -1570,7 +1570,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_led_strip_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = D:\Programas\Espressif\tools\cmake\3.20.3\bin\cmake.exe --regenerate-during-build -SD:\Programas\Espressif\ESP32IDFProjects\MyBlink -BD:\Programas\Espressif\ESP32IDFProjects\MyBlink\build
+  command = D:\Programas\Espressif\tools\cmake\3.20.3\bin\cmake.exe --regenerate-during-build -SD:\Programas\Espressif\ESP32IDFProjects\PruebasBlink -BD:\Programas\Espressif\ESP32IDFProjects\PruebasBlink\build
   description = Re-running CMake...
   generator = 1
 

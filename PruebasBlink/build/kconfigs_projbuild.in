@@ -3,4 +3,4 @@ source "D:/Programas/Espressif/frameworks/esp-idf-v4.4/components/bootloader/Kco
 source "D:/Programas/Espressif/frameworks/esp-idf-v4.4/components/esp_rom/Kconfig.projbuild"
 source "D:/Programas/Espressif/frameworks/esp-idf-v4.4/components/esptool_py/Kconfig.projbuild"
 source "D:/Programas/Espressif/frameworks/esp-idf-v4.4/components/partition_table/Kconfig.projbuild"
-source "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/main/Kconfig.projbuild"
+source "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/main/Kconfig.projbuild"

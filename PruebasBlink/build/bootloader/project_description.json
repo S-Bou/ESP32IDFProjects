@@ -1,8 +1,8 @@
 {
     "project_name":       "bootloader",
     "project_path":       "D:/Programas/Espressif/frameworks/esp-idf-v4.4/components/bootloader/subproject",
-    "build_dir":          "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/bootloader",
-    "config_file":        "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/sdkconfig",
+    "build_dir":          "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/bootloader",
+    "config_file":        "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/sdkconfig",
     "config_defaults":    "",
     "app_elf":            "bootloader.elf",
     "app_bin":            "bootloader.bin",

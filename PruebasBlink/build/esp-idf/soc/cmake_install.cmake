@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/esp-idf/soc/esp32/cmake_install.cmake")
+  include("D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/esp-idf/soc/esp32/cmake_install.cmake")
 
 endif()
 

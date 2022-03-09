@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/CMakeFiles/bootloader"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/CMakeFiles/bootloader.rule"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 

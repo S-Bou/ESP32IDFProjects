@@ -1,4 +1,4 @@
-# Install script for directory: D:/Programas/Espressif/ESP32IDFProjects/MyBlink/main
+# Install script for directory: D:/Programas/Espressif/ESP32IDFProjects/PruebasBlink/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
