@@ -1,4 +1,4 @@
-/* * Data converted from D:/Programas/Espressif/ESP32IDFProjects/MyBlink/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Espressif/ESP32IDFProjects/MyBlink/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

@@ -10,22 +10,22 @@ TaskHandle_t myTaskHandle = NULL;
 void task1 (void *arg)
 {
 
-while(1)
-{
-    printf("Hello from task 1 \n");
-    vTaskDelay(1000 / portTICK_RATE_MS);
-}
+    while(1)
+    {
+        printf("Hello from task 1 \n");
+        vTaskDelay(1000 / portTICK_RATE_MS);
+    }
 
 }
 
 void task2 (void *arg)
 {
 
-while(1)
-{
-    printf("Hello from task 2 \n");
-    vTaskDelay(1000 / portTICK_RATE_MS);
-}
+    for(int i=0; i<5; i++)
+    {
+        printf("Hello from task 2 \n");
+        vTaskDelay(1000 / portTICK_RATE_MS);
+    }
 
 }
 
@@ -36,3 +36,6 @@ void app_main()
     xTaskCreatePinnedToCore(task2, "task2", 4096, NULL, 10, &myTaskHandle, 1);
 
 }
+
+
+
