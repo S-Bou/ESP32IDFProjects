@@ -4,64 +4,47 @@
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "driver/gpio.h"
 
-TaskHandle_t myTask1Handle = NULL;
-TaskHandle_t myTask2Handle = NULL;
+#define ESP_INR_FLAG_DEFAULT 0
+#define CONFIG_BUTTON_PIN 0
+#define CONFIG_LED_PIN 2
 
-void task1 (void *arg)
+TaskHandle_t ISR = NULL;
+
+void IRAM_ATTR button_isr_handler(void *arg)
 {
-    printf("The task2 has name: %s \n", pcTaskGetTaskName(myTask2Handle));
-    int C = 0;
-
-    while(1)
-    {
-        C=xTaskGetTickCount();
-        printf("[%d] Hello from task 1 \n", C);
-        vTaskDelay(1000 / portTICK_RATE_MS);
-        if(C==300){
-            vTaskSuspend(myTask2Handle);
-            //vTaskDelete(myTask2Handle);
-            printf("Task2 is suspended! %d \n", eTaskGetState(myTask2Handle));
-        }
-        if(C==500){
-            vTaskResume(myTask2Handle);
-            //vTaskDelete(myTask2Handle);
-            printf("Task2 is resumed! %d \n", eTaskGetState(myTask2Handle));
-        }   
-        if(C==700){
-            vTaskDelete(myTask2Handle);
-            //vTaskDelete(myTask2Handle);
-            printf("Task2 is deleted! %d \n", eTaskGetState(myTask2Handle));
-        }             
-    }
-
+    xTaskResumeFromISR(ISR);
 }
 
-/*
-Runing   = 0,
-Ready    = 1,
-Blocked  = 2,
-Suspended= 3,
-Deleted  = 4,
-Invalid  = 5
-*/
-
-void task2 (void *arg)
+void button_task(void *arg)
 {
-
-    for(int i=0; i<10; i++)
-    {
-        printf("Hello from task 2 \n");
-        vTaskDelay(1000 / portTICK_RATE_MS);
-    }
-
+    bool led_status = false;
+    while(1){
+        vTaskSuspend(NULL);
+        led_status = !led_status;
+        gpio_set_level(CONFIG_LED_PIN, led_status);
+        printf("Button pressed!\n");
+    }   
 }
 
 void app_main()
 {
-
-    xTaskCreate(task1, "task1", 4096, NULL, 10, &myTask1Handle);
-    xTaskCreatePinnedToCore(task2, "task2", 4096, NULL, 10, &myTask2Handle, 1);
+    //Set pins as GPIO
+    gpio_pad_select_gpio(CONFIG_BUTTON_PIN);
+    gpio_pad_select_gpio(CONFIG_LED_PIN);
+    //Set pins as input or output
+    gpio_set_direction(CONFIG_BUTTON_PIN, GPIO_MODE_INPUT);
+    gpio_set_direction(CONFIG_LED_PIN, GPIO_MODE_OUTPUT);
+    //Enable interrupt on falling (1->0) edge for button pin
+    gpio_set_intr_type(CONFIG_BUTTON_PIN, GPIO_INTR_NEGEDGE);
+    //Install the driver's GPIO ISR handler service, wich allows per-pin GPIO interrupt hendlers.
+    //Install ISR service with default configuration
+    gpio_install_isr_service(ESP_INR_FLAG_DEFAULT);
+    //Attach the interrupt service routine
+    gpio_isr_handler_add(CONFIG_BUTTON_PIN, button_isr_handler, NULL);
+    //Create and start stats task
+    xTaskCreate(button_task, "button_task", 4096, NULL, 10, &ISR);
 
 }
 
