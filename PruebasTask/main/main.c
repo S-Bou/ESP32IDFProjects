@@ -5,7 +5,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-TaskHandle_t myTaskHandle = NULL;
+TaskHandle_t myTask1Handle = NULL;
+TaskHandle_t myTask2Handle = NULL;
 
 void task1 (void *arg)
 {
@@ -32,8 +33,8 @@ void task2 (void *arg)
 void app_main()
 {
 
-    xTaskCreate(task1, "task1", 4096, NULL, 10, &myTaskHandle);
-    xTaskCreatePinnedToCore(task2, "task2", 4096, NULL, 10, &myTaskHandle, 1);
+    xTaskCreate(task1, "task1", 4096, NULL, 10, &myTask1Handle);
+    xTaskCreatePinnedToCore(task2, "task2", 4096, NULL, 10, &myTask2Handle, 1);
 
 }
 
