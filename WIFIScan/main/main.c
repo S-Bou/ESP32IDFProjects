@@ -1,83 +1,56 @@
-/* Blink Example
-
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-*/
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "led_strip.h"
-#include "sdkconfig.h"
+#include "esp_event_loop.h"
+#include "esp_wifi.h"
+#include "nvs_flash.h"
 
-static const char *TAG = "example";
+void scann(){
+// configure and run the scan process in blocking mode
+  wifi_scan_config_t scan_config = {
+    .ssid = 0,
+    .bssid = 0,
+    .channel = 0,
+        .show_hidden = true
+    };
+  printf("Start scanning...");
+  ESP_ERROR_CHECK(esp_wifi_scan_start(&scan_config, true));
+  printf(" completed!\n");
+ 
+  // get the list of APs found in the last scan
+  uint16_t ap_num;
+  wifi_ap_record_t ap_records[20];
+     ESP_ERROR_CHECK(esp_wifi_scan_get_ap_num(&ap_num));
+  ESP_ERROR_CHECK(esp_wifi_scan_get_ap_records(&ap_num, ap_records));
+  
+  // print the list 
+  printf("Found %d access points:\n", ap_num);
 
-/* Use project configuration menu (idf.py menuconfig) to choose the GPIO to blink,
-   or you can edit the following line and set a number here.
-*/
-#define BLINK_GPIO CONFIG_BLINK_GPIO
-
-static uint8_t s_led_state = 0;
-
-#ifdef CONFIG_BLINK_LED_RMT
-static led_strip_t *pStrip_a;
-
-static void blink_led(void)
-{
-    /* If the addressable LED is enabled */
-    if (s_led_state) {
-        /* Set the LED pixel using RGB from 0 (0%) to 255 (100%) for each color */
-        pStrip_a->set_pixel(pStrip_a, 0, 16, 16, 16);
-        /* Refresh the strip to send data */
-        pStrip_a->refresh(pStrip_a, 100);
-    } else {
-        /* Set all LED off to clear all pixels */
-        pStrip_a->clear(pStrip_a, 50);
-    }
+  printf("               SSID              | Channel | RSSI |   MAC \n\n");
+  //printf("----------------------------------------------------------------\n");
+  for(int i = 0; i < ap_num; i++)
+    printf("%32s | %7d | %4d   %2x:%2x:%2x:%2x:%2x:%2x   \n", ap_records[i].ssid, ap_records[i].primary, ap_records[i].rssi , *ap_records[i].bssid, *(ap_records[i].bssid+1), *(ap_records[i].bssid+2), *(ap_records[i].bssid+3), *(ap_records[i].bssid+4), *(ap_records[i].bssid+5));
+//  printf("----------------------------------------------------------------\n");   
+ 
 }
 
-static void configure_led(void)
+
+void app_main()
 {
-    ESP_LOGI(TAG, "Example configured to blink addressable LED!");
-    /* LED strip initialization with the GPIO and pixels number*/
-    pStrip_a = led_strip_init(CONFIG_BLINK_LED_RMT_CHANNEL, BLINK_GPIO, 1);
-    /* Set all LED off to clear all pixels */
-    pStrip_a->clear(pStrip_a, 50);
-}
+  // initialize NVS
+  ESP_ERROR_CHECK(nvs_flash_init());
+  
+tcpip_adapter_init();
 
-#elif CONFIG_BLINK_LED_GPIO
+  wifi_init_config_t wifi_config = WIFI_INIT_CONFIG_DEFAULT();
+  ESP_ERROR_CHECK(esp_wifi_init(&wifi_config));
+  ESP_ERROR_CHECK(esp_wifi_start());// starts wifi usage
+  
 
-static void blink_led(void)
-{
-    /* Set the GPIO level according to the state (LOW or HIGH)*/
-    gpio_set_level(BLINK_GPIO, s_led_state);
-}
+  
+      while(1) {  vTaskDelay(3000 / portTICK_RATE_MS);
+  scann();
+      }
+  }
 
-static void configure_led(void)
-{
-    ESP_LOGI(TAG, "Example configured to blink GPIO LED!");
-    gpio_reset_pin(BLINK_GPIO);
-    /* Set the GPIO as a push/pull output */
-    gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT);
-}
-
-#endif
-
-void app_main(void)
-{
-
-    /* Configure the peripheral according to the LED type */
-    configure_led();
-
-    while (1) {
-        ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
-        blink_led();
-        /* Toggle the LED state */
-        s_led_state = !s_led_state;
-        vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
-    }
-}
+  
